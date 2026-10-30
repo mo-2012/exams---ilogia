@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * iLogia Exams — Design System
+ * Derived from the official ilogia-ds.css v3 "Academic Prestige" identity:
+ * primary green #005542/#136F58/#0E5040, ivory #FBF9F5, cream #F4F1EA,
+ * gold #D4AF37, ink #192428, muted #5C6B66, line #E4DFD5.
+ * Typography: IBM Plex Sans Arabic (UI) + Noto Naskh Arabic (display).
+ */
+@layer base {
+  :root {
+    /* iLogia raw tokens */
+    --ilo-primary: 167 100% 17%;        /* #005542 */
+    --ilo-primary-c: 165 71% 25%;       /* #136F58 */
+    --ilo-primary-d: 165 70% 18%;       /* #0E5040 */
+    --ilo-ivory: 40 43% 97%;            /* #FBF9F5 */
+    --ilo-cream: 42 31% 94%;            /* #F4F1EA */
+    --ilo-surface: 40 33% 99%;
+    --ilo-line: 40 22% 86%;             /* #E4DFD5 */
+    --ilo-ink: 196 23% 13%;             /* #192428 */
+    --ilo-mut: 160 8% 39%;              /* #5C6B66 */
+    --ilo-gold: 46 65% 52%;             /* #D4AF37 */
+    --ilo-gold-d: 45 69% 36%;           /* #9A7B1C */
+    --ilo-gold-t: 46 65% 52% / 0.15;
+    --ilo-lime: 88 52% 51%;             /* #82C341 */
+    --ilo-err: 0 75% 42%;               /* #BA1A1A */
+    --ilo-err-bg: 6 71% 95%;
+    --ilo-ok-bg: 158 45% 92%;
+
+    /* shadcn mapping */
+    --background: var(--ilo-ivory);
+    --foreground: var(--ilo-ink);
+    --card: var(--ilo-surface);
+    --card-foreground: var(--ilo-ink);
+    --popover: var(--ilo-surface);
+    --popover-foreground: var(--ilo-ink);
+    --primary: var(--ilo-primary-c);
+    --primary-foreground: 40 43% 98%;
+    --secondary: var(--ilo-cream);
+    --secondary-foreground: var(--ilo-primary-d);
+    --muted: var(--ilo-cream);
+    --muted-foreground: var(--ilo-mut);
+    --accent: 165 40% 93%;
+    --accent-foreground: var(--ilo-primary-d);
+    --destructive: var(--ilo-err);
+    --destructive-foreground: 40 43% 98%;
+    --border: var(--ilo-line);
+    --input: var(--ilo-line);
+    --ring: var(--ilo-primary-c);
+    --radius: 0.5rem;
+    --sidebar-background: var(--ilo-surface);
+    --sidebar-foreground: var(--ilo-ink);
+    --sidebar-primary: var(--ilo-primary-c);
+    --sidebar-primary-foreground: 40 43% 98%;
+    --sidebar-accent: var(--ilo-cream);
+    --sidebar-accent-foreground: var(--ilo-primary-d);
+    --sidebar-border: var(--ilo-line);
+    --sidebar-ring: var(--ilo-primary-c);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: "Noto Naskh Arabic", "Noto Serif", Georgia, serif;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--ilo-primary-c));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: hsl(165 71% 25% / 0.14);
+  }
+  input[type="checkbox"], input[type="radio"] {
+    accent-color: #136f58;
+  }
+}
+
+@layer components {
+  /* iLogia surface card — flat, hairline border, subtle shadow */
+  .ilo-card {
+    @apply rounded-lg border border-border bg-card;
+    box-shadow: 0 4px 20px -2px rgba(25, 36, 40, 0.05), 0 1px 3px rgba(25, 36, 40, 0.03);
+  }
+  .ilo-card-hover {
+    transition: box-shadow 0.18s ease-out, border-color 0.18s ease-out, transform 0.18s ease-out;
+  }
+  .ilo-card-hover:hover {
+    border-color: hsl(var(--ilo-primary-c) / 0.45);
+    box-shadow: 0 8px 24px -4px rgba(19, 111, 88, 0.12), 0 1px 3px rgba(25, 36, 40, 0.05);
+  }
+  /* status pill */
+  .ilo-pill {
+    @apply inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold leading-none;
+  }
+  /* gold accent button */
+  .ilo-btn-gold {
+    background: hsl(var(--ilo-gold));
+    color: hsl(var(--ilo-ink));
+  }
+  .ilo-btn-gold:hover {
+    background: hsl(46 65% 47%);
+  }
+  /* exam option row */
+  .ilo-option {
+    @apply flex w-full cursor-pointer items-start gap-3 rounded-lg border border-border bg-card p-4 text-start transition-colors;
+    min-height: 56px;
+  }
+  .ilo-option:hover {
+    border-color: hsl(var(--ilo-primary-c) / 0.5);
+    background: hsl(165 40% 97%);
+  }
+  .ilo-option[data-selected="true"] {
+    border-color: hsl(var(--ilo-primary-c));
+    background: hsl(165 45% 95%);
+    box-shadow: 0 0 0 1px hsl(var(--ilo-primary-c));
+  }
+  .ilo-option[data-correct="true"] {
+    border-color: hsl(158 60% 32%);
+    background: hsl(var(--ilo-ok-bg));
+  }
+  .ilo-option[data-wrong="true"] {
+    border-color: hsl(var(--ilo-err));
+    background: hsl(var(--ilo-err-bg));
+  }
+}
+
+@layer utilities {
+  .text-gold {
+    color: hsl(var(--ilo-gold-d));
+  }
+  .bg-gold {
+    background-color: hsl(var(--ilo-gold));
+  }
+  .text-ilo-muted {
+    color: hsl(var(--ilo-mut));
+  }
+  .border-ilo {
+    border-color: hsl(var(--ilo-line));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
