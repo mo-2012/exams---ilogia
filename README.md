@@ -1,5 +1,14 @@
-# iLogia Exams (static)
-موقع ثابت بدون npm أو build: `index.html` + Supabase.
-1. Supabase → SQL Editor → شغّل `schema.sql` (جداول exam_* جديدة فقط).
-2. تأكد أن رابط الموقع ضمن Redirect URLs في Authentication.
-3. ارفع الملفات على GitHub Pages (CNAME = exams.ilogia-eg.com).
+# نظام امتحانات iLogia
+
+موقع اختبارات عربي بسيط يعمل كصفحة ويب ثابتة. لا يحتاج إلى تثبيت Node.js أو npm أو تشغيل أوامر build؛ افتح الموقع من استضافة صفحات ثابتة مثل GitHub Pages.
+
+## التجهيز لأول مرة
+
+1. استخدم جداول الامتحانات الحالية `exams_exams`, `exams_questions`, `exams_answer_keys`, و`exams_attempts`.
+2. شغّل [دوال Supabase الآمنة](./docs/exams-existing-schema-functions.sql) من Supabase → SQL Editor.
+3. فعّل تسجيل الدخول بالبريد وكلمة المرور، وتأكيد البريد عند الحاجة، وGoogle في Supabase Authentication. أضف رابط الموقع إلى عناوين إعادة التوجيه المسموح بها.
+4. انشر ملفات المشروع على GitHub Pages أو استضافة صفحات ثابتة. الدومين المخصص موجود في `CNAME`.
+
+بعد تسجيل الدخول، يجلب الموقع بيانات المستخدم المرتبطة بحسابه من `profiles` و`public_profiles`، ويعرض لوحة الامتحانات والنتائج والسجل والملف الشخصي. يحتاج الموقع إلى الإنترنت للوصول إلى Supabase. بعد تسليم الاختبار، تحسب دوال Supabase الدرجة وتحفظ المحاولة والإجابات في الجداول الحالية، مرتبطة بحساب الطالب؛ لا تُحفظ الدرجات على جهاز الطالب فقط.
+
+لخطوات النشر والتأكد من حفظ الدرجات، راجع [دليل النشر](./docs/DEPLOYMENT.md).
